@@ -42,11 +42,11 @@ Then this is the flow of requests:
         http://my-gae-queuable.appspot.com/url=http://sinatra-worker.heroku.com/handle&params=hello!&callback=http://my-real-app.heroku.com
 2. Queuable on GAE will then `POST` to `http://sinatra-worker.heroku.com/handle`, and your Sinatra worker app will receive this:
       
-      `{'url': 'http://postable.me', 'callback': 'http://postable.me/posts', 'params': 'hello!'}`
+      `{'url': 'http://sinatra-worker.heroku.com/handle', 'callback': 'http://my-real-app.heroku.com', 'params': 'hello!'}`
 3. You then do whatever you want with that data, IN THE REQUEST CYCLE.  We can do it in the request cycle because nobody sees this app.  The whole point is to not use cron/delayed_job on Heroku because it costs money.
 4. When you return some result, Queuable on GAE will send this back to the original app:
 
-      `{"body"=>"All your content (json, html, xml, anything)", "request"=>"{'url': 'http://postable.me', 'callback': 'http://postable.me/posts', 'params': 'hello!'}", "task"=>"queue", "status"=>"200", "headers"=>"{'content-length': '0', 'set-cookie': 'rack.session=AQz7AA%3D%3D%0A; path=/', 'server': 'nginx/0.6.39', 'connection': 'keep-alive', 'date': 'Thu, 26 Aug 2010 20:30:30 GMT', 'content-type': 'text/html'}"}`
+      `{"body"=>"All your content (json, html, xml, anything)", "request"=>"{'url': 'http://sinatra-worker.heroku.com/handle', 'callback': 'http://my-real-app.heroku.com', 'params': 'hello!'}", "task"=>"queue", "status"=>"200", "headers"=>"{'content-length': '0', 'set-cookie': 'rack.session=AQz7AA%3D%3D%0A; path=/', 'server': 'nginx/0.6.39', 'connection': 'keep-alive', 'date': 'Thu, 26 Aug 2010 20:30:30 GMT', 'content-type': 'text/html'}"}`
 
 This means that your main app just sends a request to GAE and returns immediately.  GAE then queues up the task, and calls your worker app to handle it (so you can program in Ruby).  Whenever it's complete, it sends the processed result back to GAE, and GAE `POST`'s it back to the original app.  So your app isn't tied up in long-running operations, and you don't have to pay lots or configure a ton to have background processes.
 
