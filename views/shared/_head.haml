@@ -1,0 +1,37 @@
+/ meta
+= meta_tags c("metadata.title"), :keywords => c("metadata.keywords").split(/,\s+/), :description => c("metadata.tagline")
+- if @noindex
+  = meta_tag "robots", "noindex follow"
+- else
+  = meta_tag "robots", "index follow"
+= meta_tag "author", c("metadata.author")
+= meta_tag "copyright", c("metadata.copyright")
+= meta_tag "classification", c("metadata.classification")
+= meta_tag "country", c("metadata.country")
+= meta_tag "apple-mobile-web-app-capable", "yes"
+= meta_tag "apple-touch-fullscreen", "yes"
+= meta_tag "google-analytics", c("keys.google_analytics")
+= meta_tag "mixpanel", c("keys.mixpanel")
+= meta_tag "blogcatalog", "9BC9964922"
+= meta_tag "og:site_name", c("metadata.title")
+
+/ stylesheets
+= stylesheet_link_tag 'jquery.jgrowl'
+= stylesheet_link_tag 'application'
+
+/ javascripts
+- %w(jquery/jquery-1.4.2 jquery/jquery.form-2.4.3 jquery/jquery.validate-1.7 jquery/jquery.hotkeys jquery/jquery.cycle.all-2.8.6).each do |javascript|
+  = javascript_include_tag "http://cachedcommons.org/javascripts/#{javascript}-min.js"
+= javascript_include_tag "cufon"
+= javascript_include_tag "museo"
+= javascript_include_tag "jquery.jgrowl"
+= javascript_include_tag "socket.io/socket.io.js"
+= javascript_include_tag "application"
+= javascript_include_tag "async"
+
+/ links
+%link{:rel => "shortcut icon", :href => "#{c("icons.favicon")}", :type => "image/x-icon"}
+%link{:rel => "apple-touch-icon", :href => "#{c("icons.touch_icon")}", :title => "#{c("metadata.title")}"}/
+%link{:rel => "start", :href => "/feed.atom", :type => "application/atom+xml", :title => "Viatropos' Atom Feed"}/
+%link{:rel => "alternate", :type => "application/rss+xml", :title => "RSS 2.0", :href => "/feed.rss"}/
+%link{:rel => "profile", :href => "http://microformats.org/profile/hcard"}/

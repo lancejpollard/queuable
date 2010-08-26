@@ -1,0 +1,9 @@
+.document > .footer {
+  bottom: 0;
+  width: 100%;
+  z-index: 1000px;
+  .navigation {
+    height: 30px;
+    @include gradient($background-color, white);
+  }
+}

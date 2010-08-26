@@ -1,0 +1,42 @@
+html {
+  overflow: hidden; }
+
+body {
+  font: 80%/1.6 arial, sans-serif;
+  background: $background-color;
+  color: $text-color;
+}
+
+p {
+  margin-bottom: 17px; }
+
+input {
+  font: 1em arial, sans-serif; }
+
+h1 {
+  font-weight: normal;
+  font-size: 3.4em;
+  line-height: 1;
+  color: $header-color;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-weight: normal;
+  font-size: 4em;
+  line-height: 1;
+  color: #ffdd55;
+  margin-bottom: 10px;
+}
+
+h3 {
+  font-weight: normal;
+  font-size: 2.4em;
+  line-height: 1;
+  color: #ffdd55;
+  margin-bottom: 20px; }
+
+a {
+  text-decoration: none;
+  color: $bar-color;
+}

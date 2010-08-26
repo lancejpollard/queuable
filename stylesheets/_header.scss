@@ -1,0 +1,50 @@
+.document > .header {
+  .navigation {
+    background: white;
+    text-align: right;
+    padding: 5px 10px;
+    a {
+      color: $barely-color;
+    }
+    ul li {
+      display: inline-block;
+      padding: 0px 0px 0px 20px;
+    }
+  }
+  .title {
+    text-align: center;
+    @include gradient(white, $background-color);
+    padding-top: 30px;
+    .header {
+      h1 {
+        color: #7dad66;
+        text-shadow: -1px -1px #666, 1px 1px #FFF;
+        font-weight: bold;
+        font-size: 6em;
+        text-align: center;
+        padding: 10px 0px;
+        position: relative;
+        a {
+          text-decoration: none;
+          color: inherit;
+        }
+        span {
+          padding: 0 !important;
+          margin: 0 !important;
+          &.me {
+            color: #804295;
+            position: relative;
+            @include rotate(-30deg);
+            display: inline-block;
+            top: -35px;
+            left: 5px;
+            font-size: .5em;
+          }
+        }
+      }
+    }
+  }
+}
+h2, h3, #input {
+  text-shadow: -1px -1px #666;
+}

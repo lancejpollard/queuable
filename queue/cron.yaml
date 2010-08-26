@@ -1,0 +1,4 @@
+cron:
+- description: minute-by-minute feed aggregator
+  url: /cron
+  schedule: every 2 minutes synchronized

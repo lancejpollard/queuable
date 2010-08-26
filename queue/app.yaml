@@ -1,0 +1,14 @@
+application: viatropos2
+version: 1
+runtime: python
+api_version: 1
+
+handlers:
+- url: /
+  script: queuable.py
+- url: /queue
+  script: queuable.py
+- url: /cron
+  script: queuable.py
+- url: /test
+  script: queuable.py

@@ -1,0 +1,11 @@
+.DS_Store
+.sass-cache
+.sass-cache/*
+.sass-cache/**/*
+config
+config/*
+config/**/*
+tmp
+tmp/*
+tmp/**/*
+*.rdb

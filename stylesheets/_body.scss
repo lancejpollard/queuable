@@ -1,0 +1,131 @@
+.document > .body {
+  padding-bottom: 60px;
+  position: relative;
+  .content {
+    position: relative;
+  }
+  form {
+    position: relative;
+    @include shadow;
+  }
+  fieldset {
+    display: block;
+  }
+  .step {
+    padding: 10px 10px 15px 10px;
+    position: relative;
+    width: #{960 - 20 - 20}px;
+    &#step-one {
+      @include gradient($background-grad-light, $background-grad-dark);
+      border: 10px solid white;
+      h2 {
+        color: white;
+      }
+    }
+    &#step-two {
+      @include gradient($slide-two-light, $slide-two-dark);
+      border: 10px solid white;
+      h2 {
+        color: white;
+      }
+    }
+    .field {
+      label {
+        display: block;
+        color: $header-color;
+      }
+      input {
+        display: block;
+        padding: 0;
+        margin: 0;
+        margin-bottom: 10px;
+      }
+      input[type=text], textarea {
+        width: #{960 - 20 - 10 - 4 - 20}px;
+        padding: 5px;
+        @include gradient($background-color, white);
+      }
+      input[type=text] {
+        font-size: 2.6em;
+      }
+      textarea {
+        font-size: 1.8em;
+        height: 5em;
+        resize: none;
+      }
+    }
+  }
+  
+  #step-two {
+    .field {
+      display: inline-block;
+      text-align: center;
+      width: 100px;
+      label {
+        display: block;
+      }
+      input {
+        display: inline-block;
+      }
+    }
+  }
+  
+  .pager {
+    color: $text-color;
+    border: none;
+    font-size: 1.8em;
+    cursor: pointer;
+    position: absolute;
+    @include shadow;
+    border: 5px solid white;
+    &.step-one {
+      background: $background-grad-dark;
+    }
+    &.step-two {
+      background: $slide-two-dark;
+    }
+  }
+}
+
+#next {
+  padding-left: 40px;
+  padding-right: 10px;
+  @include rotate(-7deg);
+}
+#previous {
+  padding-right: 40px;
+  padding-left: 10px;
+  display: none;
+  @include rotate(3deg);
+}
+#submit {
+  background: $background-color;
+  border: none;
+  font-size: 1.8em;
+  cursor: pointer;
+  color: $bar-color;
+  border: 5px solid white;
+  padding: 10px 20px;
+  @include shadow;
+}
+
+.stats {
+  position: fixed;
+  padding: 3px;
+  background: blue;
+  display: inline-block;
+  z-index: 1000;
+}
+.send {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+}
+
+#account-form {
+  display: none;
+}
+
+textarea {
+  overflow: auto;
+}
