@@ -2,7 +2,15 @@
 
 > Free Background Processing (compared to Heroku and Slicehost)
 
-Each worker on Heroku costs $36/mo to run every hour.  There are tricks to make it run more than every hour with DelayedJob, but you still have to pay quite a bit.  What if you wanted to build 10 sample aggregator applications?  $360/month.  With Slicehost, you would just have to pay for a slice ($19-38/mo depending on need), but you'd then have to setup the whole cron/queue system.  So with Queuable I just wanted to take advantage of Google App Engine's built in Cron and Task Queue architecture so you could get them basically for free without doing much work.  Once you really needed a lasting solution, you'd probably go with Heroku.  But by then you'd have some funding :).
+## Que?
+
+Each worker on Heroku costs $36/mo to run every hour.  There are tricks to make it run more than every hour with DelayedJob, but you still have to pay quite a bit.  What if you wanted to build 10 sample aggregator applications?  $360/month.  With Slicehost, you would just have to pay for a slice ($19-38/mo depending on need), but you'd then have to setup the whole cron/queue system.  So with Queuable I just wanted to take advantage of Google App Engine's built in Cron and Task Queue architecture so you could get them basically for free without doing much work.  Once you really needed a lasting solution, you'd probably go with Heroku's workers.  But by then you'd have some funding :).
+
+So this is 3 things:
+
+1. A minimal Google App Engine application that just handles managing queues and scheduled cron jobs.  You don't need to modify this, you can just deploy it to GAE with `appcfg.py update .` as long as you have a free GAE account.
+2. A template Sinatra application which you would use to process what would normally be background processes.  The GAE application sends scheduled tasks to this Sinatra app (on Heroku), you do your feed-fetching or whatever, and the response goes back to GAE.
+3. An API.  The last piece is your actual app, say a feed aggregator Rails app with lots of models and controllers.  When you need to do a complex calculation (fetch, parse a large feed), you push that responsibility off to GAE.  You just send it some parameters (hash, string, anything), and it will queue/schedule it, and send it to your Sinatra worker app, freeing your app form time-consuming operations.  When everything's complete, GAE will send the result back to your app for you to save to the database.
 
 ## Install
 
