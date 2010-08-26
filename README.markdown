@@ -16,19 +16,25 @@ So this is 3 things:
 
 First, you need to get up and running with Google App Engine (I know, I know).  Here's a helpful [getting started with GAE article on Squidoo](http://www.squidoo.com/Google-App-Engine).  I followed [this tutorial](http://www.digitalistic.com/2008/06/09/10-easy-steps-to-use-google-app-engine-as-your-own-cdn/) for setting up GAE as a CDN.
 
-Once you get [Google App Engine installed](http://code.google.com/appengine/downloads.html), open the terminal and check to see if the commands work:
+Once you get [Google App Engine installed](http://code.google.com/appengine/downloads.html), checkout the demo.
 
-    cd queuable/queue
-    appcfg.py update . # deploy app
-    dev_appserver.py . # run dev server at http://localhost:8080/
-    
-Then go to `http://localhost:8080/?params=SOME_KEY` and you will see that task being processed.  To execute the tasks, go here:
+### Demo Gems
 
-[http://localhost:8080/_ah/admin/queues](http://localhost:8080/_ah/admin/queues)
+The demo uses a few gems just to show what's possible, so just install them real quick:
 
-Then click on the task queue name, and click "Run".
+    gem install haml json pauldix-feedzirra
 
-## Usage
+### Run the 3 servers
+
+    dev_appserver.py .          # http://localhost:8080
+    ruby demo/app/app.rb        # http://localhost:4567
+    ruby demo/worker/worker.rb  # http://localhost:4568
+
+### Queue Something!
+
+Now just open [http://localhost:4567/](http://localhost:4567/) and submit a feed url (it has a default), and check the terminal to see what just happened.
+
+## Usage (How it Works)
 
 You need 3 apps to make this work (don't worry, it's easy).
 
@@ -65,3 +71,7 @@ This means that your main app just sends a request to GAE and returns immediatel
 One way to describe a mongrel or dyno is as a share-nothing process that consumes web requests. Likewise, a worker can be described as a share-nothing process that consumes jobs from a work queue.
 
 Run heroku jobs scheduling tasks at the end of the previous one.
+
+[http://localhost:8080/_ah/admin/queues](http://localhost:8080/_ah/admin/queues)
+
+Then click on the task queue name, and click "Run".

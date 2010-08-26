@@ -28,8 +28,10 @@ class QueueWorker(webapp.RequestHandler):
       "callback": str(callback),
       "params": str(params)
     }
+    logging.info(body)
+    data = urllib.urlencode(body)
     # post to the service you want to do the processing
-    result = urlfetch.fetch(url = url, payload = body, method = urlfetch.POST, headers = {'Content-Type': 'application/x-www-form-urlencoded'})
+    result = urlfetch.fetch(url = url, payload = data, method = urlfetch.POST, headers = {'Content-Type': 'application/x-www-form-urlencoded'})
     # post the response back to your app
     body = {
       "status": result.status_code,
@@ -38,8 +40,8 @@ class QueueWorker(webapp.RequestHandler):
       "task": "queue",
       "request": body
     }
-    body = urllib.urlencode(body)
-    result = urlfetch.fetch(url = callback, payload = body, method = urlfetch.POST, headers = {'Content-Type': 'application/x-www-form-urlencoded'})
+    data = urllib.urlencode(body)
+    result = urlfetch.fetch(url = callback, payload = data, method = urlfetch.POST, headers = {'Content-Type': 'application/x-www-form-urlencoded'})
     
 class CronWorker(webapp.RequestHandler):
   def get(self): # should run at most 1/s
