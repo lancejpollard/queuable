@@ -41,6 +41,7 @@ Then this is the flow of requests:
 1. Your main app makes a `POST` to your Queuable on GAE.  A request might look like this:
         http://my-gae-queuable.appspot.com/url=http://sinatra-worker.heroku.com/handle&params=hello!&calback=http://my-real-app.heroku.com
 2. Queuable on GAE will then `POST` to `http://sinatra-worker.heroku.com/handle`, and your Sinatra worker app will receive this:
+      
       {'url': 'http://postable.me', 'callback': 'http://postable.me/posts', 'params': 'hello!'}
 3. You then do whatever you want with that data, IN THE REQUEST CYCLE.  We can do it in the request cycle because nobody sees this app.  The whole point is to not use cron/delayed_job on Heroku because it costs money.
 4. When you return some result, Queuable on GAE will send this back to the original app:
