@@ -10,7 +10,7 @@ So this is 3 things:
 
 1. A minimal Google App Engine application that just handles managing queues and scheduled cron jobs.  You don't need to modify this, you can just deploy it to GAE with `appcfg.py update .` as long as you have a free GAE account.
 2. A template Sinatra application which you would use to process what would normally be background processes.  The GAE application sends scheduled tasks to this Sinatra app (on Heroku), you do your feed-fetching or whatever, and the response goes back to GAE.
-3. An API.  The last piece is your actual app, say a feed aggregator Rails app with lots of models and controllers.  When you need to do a complex calculation (fetch, parse a large feed), you push that responsibility off to GAE.  You just send it some parameters (hash, string, anything), and it will queue/schedule it, and send it to your Sinatra worker app, freeing your app form time-consuming operations.  When everything's complete, GAE will send the result back to your app for you to save to the database.
+3. An API.  The last piece is your actual app, say a feed aggregator Rails app with lots of models and controllers.  When you need to do a complex calculation (fetch, parse a large feed), you push that responsibility off to GAE.  You just send it some parameters (hash, string, anything), and it will queue/schedule it, and send it to your Sinatra worker app to take those params and do the operation, freeing your app form time-consuming operations.  When everything's complete, GAE will send the result back to your app for you to save to the database.
 
 ## Install
 
